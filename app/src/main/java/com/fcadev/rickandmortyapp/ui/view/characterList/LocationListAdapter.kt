@@ -8,19 +8,19 @@ import com.fcadev.rickandmortyapp.databinding.LocationItemRowBinding
 import com.fcadev.rickandmortyapp.model.location.Result
 
 class LocationListAdapter(private val locationList : ArrayList<Result>) :
-    RecyclerView.Adapter<LocationListAdapter.CharacterListViewHolder>(){
+    RecyclerView.Adapter<LocationListAdapter.LocationListViewHolder>(){
 
-    class CharacterListViewHolder(var binding: LocationItemRowBinding) :
+    class LocationListViewHolder(var binding: LocationItemRowBinding) :
         RecyclerView.ViewHolder(binding.root){
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationListViewHolder {
         val binding = LocationItemRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CharacterListViewHolder(binding)
+        return LocationListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CharacterListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LocationListViewHolder, position: Int) {
         val locationItem = locationList[position]
 
         holder.binding.tvLocationBtnName.text = locationItem.name

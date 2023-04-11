@@ -2,5 +2,7 @@
     <string name="app_name">RickAndMortyApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="name">Name</string>
+    <string name="name">Name:</string>
+    <string name="test">test</string>
+    <string name="gender">Gender:</string>
 </resources>
