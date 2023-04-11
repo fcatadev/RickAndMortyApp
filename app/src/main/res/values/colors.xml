@@ -10,4 +10,7 @@
 
     <color name="splash_screen_bg">#E5FDCC</color>
     <color name="splash_screen_text">#224300</color>
+    <color name="character_card_bg">#00B5CC</color>
+    <color name="character_card_border">#B2DF28</color>
+    <color name="character_card_name">#00353E</color>
 </resources>

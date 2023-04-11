@@ -5,15 +5,48 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.fcadev.rickandmortyapp.R
+import com.fcadev.rickandmortyapp.databinding.FragmentCharacterListBinding
+import com.fcadev.rickandmortyapp.viewmodel.CharacterListViewModel
 
 class CharacterListFragment : Fragment() {
+
+    private var _binding : FragmentCharacterListBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var viewModel: CharacterListViewModel
+    private val locationAdapter = LocationListAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_character_list, container, false)
+        _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[CharacterListViewModel::class.java]
+        viewModel.downloadLocationData()
+
+        binding.rvLocation.adapter = locationAdapter
+        binding.rvLocation.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+
+        observeLiveData()
+    }
+
+    private fun observeLiveData(){
+        viewModel.locations.observe(viewLifecycleOwner, Observer { locations ->
+            locations?.let {
+                locationAdapter.updateLocationList(locations)
+            }
+        })
     }
 }
