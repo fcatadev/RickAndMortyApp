@@ -15,7 +15,7 @@ import com.fcadev.rickandmortyapp.viewmodel.CharacterListViewModel
 
 class CharacterListFragment : Fragment() {
 
-    private var _binding : FragmentCharacterListBinding? = null
+    private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var viewModel: CharacterListViewModel
@@ -37,15 +37,31 @@ class CharacterListFragment : Fragment() {
         viewModel.downloadLocationData()
 
         binding.rvLocation.adapter = locationAdapter
-        binding.rvLocation.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        binding.rvLocation.layoutManager =
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
         observeLiveData()
     }
 
-    private fun observeLiveData(){
+    private fun observeLiveData() {
         viewModel.locations.observe(viewLifecycleOwner, Observer { locations ->
             locations?.let {
+                binding.rvLocation.visibility = View.VISIBLE
                 locationAdapter.updateLocationList(locations)
+            }
+        })
+
+        viewModel.locationsLoading.observe(viewLifecycleOwner, Observer { locationLoading ->
+            locationLoading?.let {
+                if (it) {
+                    binding.rvLocation.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.clStartedPage.alpha = 0.2f
+                } else {
+                    binding.progressBar.visibility = View.GONE
+                    binding.rvLocation.visibility = View.VISIBLE
+                    binding.clStartedPage.alpha = 1f
+                }
             }
         })
     }
