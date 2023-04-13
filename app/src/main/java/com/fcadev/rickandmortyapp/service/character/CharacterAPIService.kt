@@ -1,5 +1,6 @@
 package com.fcadev.rickandmortyapp.service.character
 
+import androidx.lifecycle.MutableLiveData
 import com.fcadev.rickandmortyapp.model.character.RamCharacter
 import io.reactivex.Single
 import retrofit2.Retrofit
@@ -22,4 +23,7 @@ class CharacterAPIService {
         return api.getCharacters()
     }
 
+    fun getCharactersByIds(ids: MutableLiveData<ArrayList<String>>): Single<RamCharacter> {
+        return api.getCharactersByIds(ids)
+    }
 }

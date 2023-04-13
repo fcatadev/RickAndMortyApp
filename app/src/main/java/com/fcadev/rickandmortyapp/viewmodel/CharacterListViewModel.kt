@@ -22,6 +22,8 @@ class CharacterListViewModel : ViewModel() {
     val locations = MutableLiveData<MutableList<Result>>(mutableListOf())
     val characters = MutableLiveData<MutableList<CharacterResult>?>(mutableListOf())
     val locationsLoading = MutableLiveData<Boolean>()
+    val residentNumbersArray = MutableLiveData<ArrayList<String>>()
+
 
     fun downloadLocationData(){
         getLocationDataFromAPI()
@@ -29,6 +31,10 @@ class CharacterListViewModel : ViewModel() {
 
     fun downloadCharacterData(){
         getCharacterDataFromAPI()
+    }
+
+    fun downloadCharacterDataByLocation(){
+        getCharacterDataByLocation()
     }
 
     private fun getLocationDataFromAPI(){
@@ -73,6 +79,29 @@ class CharacterListViewModel : ViewModel() {
 
                 })
         )
+    }
+
+    private fun getCharacterDataByLocation(){
+        locationsLoading.value = true
+
+        val ids = residentNumbersArray
+        disposable.add(
+            characterAPIService.getCharactersByIds(ids)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<RamCharacter>(){
+                    override fun onSuccess(t: RamCharacter) {
+                        characters.value = t.results as MutableList<CharacterResult>?
+                        locationsLoading.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        locationsLoading.value = false
+                        e.printStackTrace()
+                    }
+                })
+        )
+
     }
 
 }

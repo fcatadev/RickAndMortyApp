@@ -19,7 +19,7 @@ class CharacterListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: CharacterListViewModel
-    private val locationAdapter = LocationListAdapter(arrayListOf())
+    private val locationAdapter = LocationListAdapter(arrayListOf(), viewModel)
     private val characterAdapter = CharacterListAdapter(arrayListOf())
 
     override fun onCreateView(
@@ -37,6 +37,7 @@ class CharacterListFragment : Fragment() {
         viewModel = ViewModelProvider(this)[CharacterListViewModel::class.java]
         viewModel.downloadLocationData()
         viewModel.downloadCharacterData()
+        viewModel.downloadCharacterDataByLocation()
 
         binding.rvLocation.adapter = locationAdapter
         binding.rvLocation.layoutManager =
@@ -68,12 +69,12 @@ class CharacterListFragment : Fragment() {
                     binding.rvLocation.visibility = View.GONE
                     binding.rvCharacters.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
-                    //binding.clStartedPage.alpha = 0.2f
+                    binding.clStartedPage.alpha = 0.2f
                 } else {
                     binding.progressBar.visibility = View.GONE
                     binding.rvLocation.visibility = View.VISIBLE
                     binding.rvCharacters.visibility = View.VISIBLE
-                    //binding.clStartedPage.alpha = 1f
+                    binding.clStartedPage.alpha = 1f
                 }
             }
         })
