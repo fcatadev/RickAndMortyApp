@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fcadev.rickandmortyapp.R
 import com.fcadev.rickandmortyapp.databinding.FragmentCharacterListBinding
 import com.fcadev.rickandmortyapp.viewmodel.CharacterListViewModel
 
@@ -19,7 +18,7 @@ class CharacterListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: CharacterListViewModel
-    private val locationAdapter = LocationListAdapter(arrayListOf(), viewModel)
+    private lateinit var locationAdapter : LocationListAdapter
     private val characterAdapter = CharacterListAdapter(arrayListOf())
 
     override fun onCreateView(
@@ -37,7 +36,7 @@ class CharacterListFragment : Fragment() {
         viewModel = ViewModelProvider(this)[CharacterListViewModel::class.java]
         viewModel.downloadLocationData()
         viewModel.downloadCharacterData()
-        viewModel.downloadCharacterDataByLocation()
+        locationAdapter = LocationListAdapter(arrayListOf(), viewModel)
 
         binding.rvLocation.adapter = locationAdapter
         binding.rvLocation.layoutManager =

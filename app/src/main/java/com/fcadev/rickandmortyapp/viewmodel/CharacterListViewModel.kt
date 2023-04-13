@@ -1,5 +1,6 @@
 package com.fcadev.rickandmortyapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fcadev.rickandmortyapp.model.character.CharacterResult
@@ -8,6 +9,7 @@ import com.fcadev.rickandmortyapp.model.location.RamLocation
 import com.fcadev.rickandmortyapp.model.location.Result
 import com.fcadev.rickandmortyapp.service.character.CharacterAPIService
 import com.fcadev.rickandmortyapp.service.location.LocationAPIService
+import com.fcadev.rickandmortyapp.ui.view.characterList.CharacterListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -81,10 +83,12 @@ class CharacterListViewModel : ViewModel() {
         )
     }
 
-    private fun getCharacterDataByLocation(){
+    fun getCharacterDataByLocation(){
         locationsLoading.value = true
 
-        val ids = residentNumbersArray
+        val ids = residentNumbersArray.value.toString()
+            .substring(1, residentNumbersArray.value.toString().length - 1)
+        Log.d("ids", ids)
         disposable.add(
             characterAPIService.getCharactersByIds(ids)
                 .subscribeOn(Schedulers.newThread())

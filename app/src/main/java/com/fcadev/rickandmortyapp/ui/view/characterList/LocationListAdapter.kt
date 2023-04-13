@@ -18,10 +18,11 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class LocationListAdapter(private val locationList: ArrayList<Result>, private val viewModel: CharacterListViewModel) :
+class LocationListAdapter(private val locationList: ArrayList<Result>, viewModel: CharacterListViewModel) :
     RecyclerView.Adapter<LocationListAdapter.LocationListViewHolder>() {
 
     private var residentCostsArray: MutableLiveData<ArrayList<String>> = viewModel.residentNumbersArray
+    private val charListViewModel = viewModel
 
     class LocationListViewHolder(var binding: LocationItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -54,8 +55,9 @@ class LocationListAdapter(private val locationList: ArrayList<Result>, private v
                 residentNumbersArray.add(residentNumber)
             }
 
+            Log.d("residents", residentNumbersArray.toString())
             residentCostsArray.value = residentNumbersArray
-
+            charListViewModel.getCharacterDataByLocation()
         }
     }
 

@@ -14,5 +14,5 @@ interface CharacterAPI {
     fun getCharacters(): Single<RamCharacter>
 
     @GET("api/character/{ids}")
-    fun getCharactersByIds(@Path("ids") ids: MutableLiveData<ArrayList<String>>): Single<RamCharacter>
+    fun getCharactersByIds(@Path("ids") ids: String): Single<RamCharacter>
 }

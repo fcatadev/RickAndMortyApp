@@ -23,7 +23,7 @@ class CharacterAPIService {
         return api.getCharacters()
     }
 
-    fun getCharactersByIds(ids: MutableLiveData<ArrayList<String>>): Single<RamCharacter> {
+    fun getCharactersByIds(ids: String): Single<RamCharacter> {
         return api.getCharactersByIds(ids)
     }
 }
