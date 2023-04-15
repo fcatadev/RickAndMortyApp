@@ -42,5 +42,21 @@
             android:name="characterImage"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="characterOrigin"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterLocation"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterEpisodes"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="characterSpecy"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

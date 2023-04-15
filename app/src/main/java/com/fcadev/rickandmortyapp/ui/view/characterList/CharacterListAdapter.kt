@@ -11,6 +11,9 @@ import com.fcadev.rickandmortyapp.R
 import com.fcadev.rickandmortyapp.databinding.CharacterItemRowBinding
 import com.fcadev.rickandmortyapp.model.character.CharacterResult
 import androidx.navigation.Navigation.findNavController
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 class CharacterListAdapter(private val characterList: ArrayList<CharacterResult>) :
     RecyclerView.Adapter<CharacterListAdapter.CharacterListViewHolder>() {
@@ -53,16 +56,27 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterResult>
         holder.binding.cvExpenseItem.setOnClickListener {
             onItemClick?.invoke(characterItem)
 
+            val inputFormatter = DateTimeFormatter.ISO_DATE_TIME
+            val outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm:ss")
+            val createdDate = LocalDateTime.parse(characterItem.created, inputFormatter)
+                .atOffset(ZoneOffset.UTC)
+                .format(outputFormatter)
+
             val bundle = Bundle()
             bundle.putString("characterName", characterItem.name)
             bundle.putString("characterStatus", characterItem.status)
             bundle.putString("characterGender", characterItem.gender)
-            bundle.putString("characterCreated", characterItem.created)
+            bundle.putString("characterCreated", createdDate)
             bundle.putString("characterImage", characterItem.image)
+            bundle.putString("characterOrigin", characterItem.origin!!.name)
+            bundle.putString("characterLocation", characterItem.location!!.name)
+            bundle.putString("characterEpisodes", characterItem.episode.toString())
+            bundle.putString("characterSpecy", characterItem.species)
+
 
             Log.d("name :", characterItem.name.toString())
 
-            findNavController(it).navigate(R.id.action_characterListFragment_to_characterDetailFragment)
+            findNavController(it).navigate(R.id.action_characterListFragment_to_characterDetailFragment, bundle)
         }
     }
 

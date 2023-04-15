@@ -23,27 +23,24 @@
         android:layout_width="275dp"
         android:layout_height="275dp"
         android:layout_gravity="center"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginVertical="20dp"
         android:src="@drawable/unknown" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/llBaseLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_weight="2"
-        android:orientation="horizontal">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp">
 
         <LinearLayout
             android:id="@+id/llDetailHeaders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tvStatus"
@@ -52,7 +49,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/status"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -62,7 +59,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/specy"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -72,7 +69,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/gender"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -82,7 +79,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/origin"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -92,7 +89,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/location"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -102,17 +99,17 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/episodes"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvCreatedAt"
+                android:id="@+id/tvCreatedAtGone"
                 android:layout_width="wrap_content"
+                android:visibility="invisible"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:text="@string/created_at_n_in_api"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -121,8 +118,10 @@
             android:id="@+id/llDetailContents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginStart="20dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/llDetailHeaders"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tvStatusContent"
@@ -131,7 +130,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/status"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/tvSpecyContent"
@@ -140,7 +139,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/specy"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/tvGenderContent"
@@ -149,7 +148,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/gender"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/tvOriginContent"
@@ -158,7 +157,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/origin"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/tvLocationContent"
@@ -167,7 +166,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/location"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/tvEpisodesContent"
@@ -176,19 +175,40 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/episodes"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llDetailContents">
+
+            <TextView
+                android:id="@+id/tvCreatedAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/created_at_n_in_api"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
 
             <TextView
                 android:id="@+id/tvCreatedAtContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/created_at_n_in_api"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center_vertical"
+                android:text="asdasdasdasdasdasa"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

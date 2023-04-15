@@ -42,6 +42,10 @@ class CharacterDetailFragment : Fragment() {
             binding.tvStatusContent.text = args.characterStatus.toString()
             binding.tvGenderContent.text = args.characterGender.toString()
             binding.tvCreatedAtContent.text = args.characterCreated.toString()
+            binding.tvOriginContent.text = args.characterOrigin.toString()
+            binding.tvLocationContent.text = args.characterLocation.toString()
+            binding.tvSpecyContent.text = args.characterSpecy.toString()
+            //binding.tvEpisodesContent.text = args.characterEpisodes.toString()
         }
     }
 }
