@@ -1,6 +1,6 @@
 package com.fcadev.rickandmortyapp.service.character
 
-import androidx.lifecycle.MutableLiveData
+import com.fcadev.rickandmortyapp.model.character.CharacterResult
 import com.fcadev.rickandmortyapp.model.character.RamCharacter
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -14,5 +14,8 @@ interface CharacterAPI {
     fun getCharacters(): Single<RamCharacter>
 
     @GET("api/character/{ids}")
-    fun getCharactersByIds(@Path("ids") ids: String): Single<RamCharacter>
+    fun getCharactersByIds(@Path("ids") ids: String): Single<ArrayList<CharacterResult>>
+
+    @GET("api/character/{id}")
+    fun getCharactersBySingleId(@Path("id") id: String): Single<CharacterResult>
 }

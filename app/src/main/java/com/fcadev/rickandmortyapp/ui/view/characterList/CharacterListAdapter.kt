@@ -56,4 +56,11 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterResult>
         characterList.addAll(newCharacterList)
         notifyDataSetChanged()
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateSingleCharacterList(newCharacterList: CharacterResult) {
+        characterList.clear()
+        characterList.addAll(listOf(newCharacterList))
+        notifyDataSetChanged()
+    }
 }
