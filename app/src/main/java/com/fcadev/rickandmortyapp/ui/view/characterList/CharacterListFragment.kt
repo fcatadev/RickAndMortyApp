@@ -29,7 +29,7 @@ class CharacterListFragment : Fragment() {
     private lateinit var viewModel: CharacterListViewModel
     private lateinit var locationAdapter: LocationListAdapter
     private val characterAdapter = CharacterListAdapter(arrayListOf())
-    private lateinit var characterList : MutableList<CharacterResult>
+    private lateinit var characterList: MutableList<CharacterResult>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +48,7 @@ class CharacterListFragment : Fragment() {
         locationAdapter = LocationListAdapter(arrayListOf(), viewModel)
 
         setRecyclerView()
+        initListener()
         observeLiveData()
     }
 
@@ -57,6 +58,12 @@ class CharacterListFragment : Fragment() {
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         binding.rvCharacters.adapter = characterAdapter
         binding.rvCharacters.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun initListener() {
+        binding.cvAllBtn.setOnClickListener {
+            viewModel.downloadCharacterData()
+        }
     }
 
     private fun observeLiveData() {
@@ -93,12 +100,14 @@ class CharacterListFragment : Fragment() {
                 if (it) {
                     binding.rvLocation.visibility = View.GONE
                     binding.rvCharacters.visibility = View.GONE
+                    binding.cvAllBtn.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                     binding.clStartedPage.alpha = 0.2f
                 } else {
                     binding.progressBar.visibility = View.GONE
                     binding.rvLocation.visibility = View.VISIBLE
                     binding.rvCharacters.visibility = View.VISIBLE
+                    binding.cvAllBtn.visibility = View.VISIBLE
                     binding.clStartedPage.alpha = 1f
                 }
             }

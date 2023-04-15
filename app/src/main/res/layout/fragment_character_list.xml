@@ -23,19 +23,50 @@
             android:layout_height="70dp"
             android:layout_marginBottom="10dp"
             android:src="@drawable/logo"
-            app:layout_constraintBottom_toTopOf="@+id/rvLocation"
+            app:layout_constraintBottom_toTopOf="@+id/llFilterButtons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvLocation"
+        <LinearLayout
+            android:id="@+id/llFilterButtons"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivHeaderLogo" />
+            app:layout_constraintTop_toBottomOf="@+id/ivHeaderLogo">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvAllBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="5dp"
+                app:strokeColor="@color/character_card_name"
+                app:strokeWidth="3dp">
+
+                <TextView
+                    android:id="@+id/tvAllBtnName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:padding="10dp"
+                    android:text="@string/all"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCharacters"
@@ -46,7 +77,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvLocation" />
+            app:layout_constraintTop_toBottomOf="@+id/llFilterButtons" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

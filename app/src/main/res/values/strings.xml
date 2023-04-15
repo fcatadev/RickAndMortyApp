@@ -5,4 +5,5 @@
     <string name="name">Name:</string>
     <string name="test">test</string>
     <string name="gender">Gender:</string>
+    <string name="all">All</string>
 </resources>
