@@ -22,5 +22,25 @@
         <action
             android:id="@+id/action_characterDetailFragment_to_characterListFragment"
             app:destination="@id/characterListFragment" />
+        <argument
+            android:name="characterName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterStatus"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterGender"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterCreated"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterImage"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

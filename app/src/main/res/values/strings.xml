@@ -6,4 +6,10 @@
     <string name="test">test</string>
     <string name="gender">Gender:</string>
     <string name="all">All</string>
+    <string name="status">Status:</string>
+    <string name="specy">Specy:</string>
+    <string name="origin">Origin:</string>
+    <string name="location">Location:</string>
+    <string name="episodes">Episodes:</string>
+    <string name="created_at_n_in_api">Created At\n(in API):</string>
 </resources>

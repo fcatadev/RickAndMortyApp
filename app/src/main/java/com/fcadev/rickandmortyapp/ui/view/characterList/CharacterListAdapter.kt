@@ -1,6 +1,8 @@
 package com.fcadev.rickandmortyapp.ui.view.characterList
 
 import android.annotation.SuppressLint
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,9 +10,12 @@ import com.bumptech.glide.Glide
 import com.fcadev.rickandmortyapp.R
 import com.fcadev.rickandmortyapp.databinding.CharacterItemRowBinding
 import com.fcadev.rickandmortyapp.model.character.CharacterResult
+import androidx.navigation.Navigation.findNavController
 
 class CharacterListAdapter(private val characterList: ArrayList<CharacterResult>) :
     RecyclerView.Adapter<CharacterListAdapter.CharacterListViewHolder>() {
+
+    var onItemClick: ((CharacterResult) -> Unit)? = null
 
     class CharacterListViewHolder(var binding: CharacterItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -43,6 +48,21 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterResult>
             else -> {
                 holder.binding.ivGenderLogo.setImageResource(R.drawable.planet)
             }
+        }
+
+        holder.binding.cvExpenseItem.setOnClickListener {
+            onItemClick?.invoke(characterItem)
+
+            val bundle = Bundle()
+            bundle.putString("characterName", characterItem.name)
+            bundle.putString("characterStatus", characterItem.status)
+            bundle.putString("characterGender", characterItem.gender)
+            bundle.putString("characterCreated", characterItem.created)
+            bundle.putString("characterImage", characterItem.image)
+
+            Log.d("name :", characterItem.name.toString())
+
+            findNavController(it).navigate(R.id.action_characterListFragment_to_characterDetailFragment)
         }
     }
 
