@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fcadev.rickandmortyapp.R
 import com.fcadev.rickandmortyapp.databinding.FragmentCharacterListBinding
 import com.fcadev.rickandmortyapp.model.character.CharacterResult
 import com.fcadev.rickandmortyapp.model.character.RamCharacter
@@ -45,7 +47,7 @@ class CharacterListFragment : Fragment() {
         viewModel = ViewModelProvider(this)[CharacterListViewModel::class.java]
         viewModel.downloadLocationData()
         viewModel.downloadCharacterData()
-        locationAdapter = LocationListAdapter(arrayListOf(), viewModel)
+        locationAdapter = LocationListAdapter(arrayListOf(), viewModel, requireContext())
 
         setRecyclerView()
         initListener()
@@ -62,7 +64,13 @@ class CharacterListFragment : Fragment() {
 
     private fun initListener() {
         binding.cvAllBtn.setOnClickListener {
+            locationAdapter.clearSelection()
+            binding.cvAllBtn.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.character_card_border))
             viewModel.downloadCharacterData()
+        }
+
+        locationAdapter.setOnItemClickListener {
+            binding.cvAllBtn.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
         }
     }
 

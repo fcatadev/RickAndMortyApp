@@ -1,13 +1,17 @@
 package com.fcadev.rickandmortyapp.ui.view.characterList
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.fcadev.rickandmortyapp.R
 import com.fcadev.rickandmortyapp.databinding.LocationItemRowBinding
 import com.fcadev.rickandmortyapp.model.character.CharacterResult
 import com.fcadev.rickandmortyapp.model.character.RamCharacter
@@ -19,11 +23,22 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class LocationListAdapter(private val locationList: ArrayList<Result>, viewModel: CharacterListViewModel) :
+class LocationListAdapter(
+    private val locationList: ArrayList<Result>,
+    viewModel: CharacterListViewModel,
+    private val context: Context
+) :
     RecyclerView.Adapter<LocationListAdapter.LocationListViewHolder>() {
 
-    private var residentCostsArray: MutableLiveData<ArrayList<String>> = viewModel.residentNumbersArray
+    private var residentCostsArray: MutableLiveData<ArrayList<String>> =
+        viewModel.residentNumbersArray
     private val charListViewModel = viewModel
+    private var selectedPosition = RecyclerView.NO_POSITION
+    private var onItemClickListener: ((position: Int) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (position: Int) -> Unit) {
+        onItemClickListener = listener
+    }
 
     class LocationListViewHolder(var binding: LocationItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -36,10 +51,26 @@ class LocationListAdapter(private val locationList: ArrayList<Result>, viewModel
         return LocationListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: LocationListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LocationListViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val locationItem = locationList[position]
 
         holder.binding.tvLocationBtnName.text = locationItem.name
+
+        if (selectedPosition == position) {
+            holder.binding.cvLocationBtn.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.character_card_border
+                )
+            )
+        } else {
+            holder.binding.cvLocationBtn.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.white
+                )
+            )
+        }
 
         holder.binding.cvLocationBtn.setOnClickListener {
             val residentsArray = ArrayList<String>()
@@ -56,6 +87,15 @@ class LocationListAdapter(private val locationList: ArrayList<Result>, viewModel
                 residentNumbersArray.add(residentNumber)
             }
 
+            if (position != selectedPosition) {
+                val previousPosition = selectedPosition
+                selectedPosition = position
+                notifyItemChanged(previousPosition)
+                notifyItemChanged(selectedPosition)
+
+                onItemClickListener?.invoke(position)
+            }
+
             Log.d("residents", residentNumbersArray.toString())
             residentCostsArray.value = residentNumbersArray
             charListViewModel.getCharacterDataByLocation()
@@ -64,6 +104,12 @@ class LocationListAdapter(private val locationList: ArrayList<Result>, viewModel
 
     override fun getItemCount(): Int {
         return locationList.size
+    }
+
+    fun clearSelection() {
+        val previousPosition = selectedPosition
+        selectedPosition = RecyclerView.NO_POSITION
+        notifyItemChanged(previousPosition)
     }
 
     @SuppressLint("NotifyDataSetChanged")
