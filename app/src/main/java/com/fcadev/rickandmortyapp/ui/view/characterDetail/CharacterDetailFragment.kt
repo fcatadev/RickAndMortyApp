@@ -38,16 +38,24 @@ class CharacterDetailFragment : Fragment() {
                 .centerCrop()
                 .into(binding.ivCharacterDetailImage)
 
-            val editEpisode = if (args.characterEpisodes.toString().length > 19){
+            val editEpisode = if (args.characterEpisodes.toString().length > 19) {
                 args.characterEpisodes.toString().substring(0, 19) + "..."
-            }else {
+            } else {
                 args.characterEpisodes.toString()
             }
 
-            if (args.characterEpisodes.toString().length > 19){
+            if (args.characterEpisodes.toString().length > 19) {
                 binding.ivAllButton.visibility = View.VISIBLE
-            }else {
+            } else {
                 binding.ivAllButton.visibility = View.GONE
+            }
+
+            if (args.characterStatus.toString() == "Dead") {
+                binding.ivIsAliveDot.setImageResource(R.drawable.reddot)
+            } else if (args.characterStatus.toString() == "Alive") {
+                binding.ivIsAliveDot.setImageResource(R.drawable.greendot)
+            } else {
+                binding.ivIsAliveDot.setImageResource(R.drawable.dot)
             }
 
             binding.tvCharacterDetailName.text = args.characterName.toString()

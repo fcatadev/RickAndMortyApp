@@ -12,4 +12,5 @@
     <string name="location">Location:</string>
     <string name="episodes">Episodes:</string>
     <string name="created_at_n_in_api">Created At \n(in API):</string>
+    <string name="dot">•</string>
 </resources>
