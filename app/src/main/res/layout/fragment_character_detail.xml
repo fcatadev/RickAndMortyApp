@@ -12,13 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/avenir"
         android:text="@string/name"
         android:textColor="@color/black"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivCharacterDetailImage"
@@ -63,6 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/status"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -73,6 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/specy"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -83,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/gender"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -93,6 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/origin"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -103,6 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/location"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -113,6 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/episodes"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -122,6 +130,7 @@
                     android:id="@+id/tvCreatedAtGone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/created_at_n_in_api"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -145,6 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/status"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
@@ -154,6 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/specy"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
@@ -163,6 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/gender"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
@@ -172,6 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/origin"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
@@ -181,6 +194,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/location"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
@@ -194,6 +208,7 @@
                         android:id="@+id/tvEpisodesContent"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir"
                         android:text="@string/episodes"
                         android:textColor="@color/black"
                         android:textSize="22sp"
@@ -228,6 +243,7 @@
                     android:id="@+id/tvCreatedAt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/avenir"
                     android:text="@string/created_at_n_in_api"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -243,6 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
+                    android:fontFamily="@font/avenir"
                     android:text="asdasdasdasdasdasa"
                     android:textColor="@color/black"
                     android:textSize="22sp"
@@ -255,7 +272,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
