@@ -62,21 +62,46 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterResult>
                 .atOffset(ZoneOffset.UTC)
                 .format(outputFormatter)
 
+            val episodeUrls = characterList[position].episode!!
+            var episodeNumbersString = ""
+
+            for (episodeUrl in episodeUrls) {
+                val episodeNumber = episodeUrl!!.split("episode/").last()
+                episodeNumbersString += "$episodeNumber, "
+            }
+
+            episodeNumbersString = episodeNumbersString.dropLast(2)
+
+            val showEditLocation = if (characterItem.location!!.name.toString().length > 18) {
+                characterItem.location.name.toString().substring(0, 18) + "..."
+            } else {
+                characterItem.location.name.toString()
+            }
+
+            val showEditOrigin = if (characterItem.origin!!.name.toString().length > 18) {
+                characterItem.origin.name.toString().substring(0, 18) + "..."
+            } else {
+                characterItem.origin.name.toString()
+            }
+
             val bundle = Bundle()
             bundle.putString("characterName", characterItem.name)
             bundle.putString("characterStatus", characterItem.status)
             bundle.putString("characterGender", characterItem.gender)
             bundle.putString("characterCreated", createdDate)
             bundle.putString("characterImage", characterItem.image)
-            bundle.putString("characterOrigin", characterItem.origin!!.name)
-            bundle.putString("characterLocation", characterItem.location!!.name)
-            bundle.putString("characterEpisodes", characterItem.episode.toString())
+            bundle.putString("characterOrigin", showEditOrigin)
+            bundle.putString("characterLocation", showEditLocation)
+            bundle.putString("characterEpisodes", episodeNumbersString)
             bundle.putString("characterSpecy", characterItem.species)
 
 
             Log.d("name :", characterItem.name.toString())
 
-            findNavController(it).navigate(R.id.action_characterListFragment_to_characterDetailFragment, bundle)
+            findNavController(it).navigate(
+                R.id.action_characterListFragment_to_characterDetailFragment,
+                bundle
+            )
         }
     }
 

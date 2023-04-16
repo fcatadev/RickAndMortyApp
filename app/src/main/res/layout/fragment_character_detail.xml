@@ -105,21 +105,22 @@
             <TextView
                 android:id="@+id/tvCreatedAtGone"
                 android:layout_width="wrap_content"
-                android:visibility="invisible"
                 android:layout_height="wrap_content"
                 android:text="@string/created_at_n_in_api"
                 android:textColor="@color/black"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/llDetailContents"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/llDetailHeaders"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -168,14 +169,32 @@
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 
-            <TextView
-                android:id="@+id/tvEpisodesContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/episodes"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="10">
+
+                <TextView
+                    android:id="@+id/tvEpisodesContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/episodes"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:id="@+id/ivAllButton"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/all" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -201,8 +220,8 @@
                 android:id="@+id/tvCreatedAtContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
                 android:text="asdasdasdasdasdasa"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
