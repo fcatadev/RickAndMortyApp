@@ -38,20 +38,16 @@ class CharacterDetailFragment : Fragment() {
                 .centerCrop()
                 .into(binding.ivCharacterDetailImage)
 
-            val editEpisode = if (args.characterEpisodes.toString().length > 20){
-                args.characterEpisodes.toString().substring(0, 20) + "..."
+            val editEpisode = if (args.characterEpisodes.toString().length > 19){
+                args.characterEpisodes.toString().substring(0, 19) + "..."
             }else {
                 args.characterEpisodes.toString()
             }
 
-            if (args.characterEpisodes.toString().length > 20){
+            if (args.characterEpisodes.toString().length > 19){
                 binding.ivAllButton.visibility = View.VISIBLE
             }else {
                 binding.ivAllButton.visibility = View.GONE
-            }
-
-            binding.ivAllButton.setOnClickListener {
-
             }
 
             binding.tvCharacterDetailName.text = args.characterName.toString()
@@ -62,6 +58,11 @@ class CharacterDetailFragment : Fragment() {
             binding.tvLocationContent.text = args.characterLocation.toString()
             binding.tvSpecyContent.text = args.characterSpecy.toString()
             binding.tvEpisodesContent.text = editEpisode
+
+            binding.ivAllButton.setOnClickListener {
+                binding.tvEpisodesContent.text = args.characterEpisodes.toString()
+                binding.ivAllButton.visibility = View.GONE
+            }
         }
     }
 }
