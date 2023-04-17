@@ -13,4 +13,6 @@
     <string name="episodes">Episodes:</string>
     <string name="created_at_n_in_api">Created At \n(in API):</string>
     <string name="dot">•</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>

@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.fcadev.rickandmortyapp.MainActivity
 import com.fcadev.rickandmortyapp.R
 
@@ -23,7 +24,7 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_screen)
 
-        val landingImg: LinearLayout = findViewById(R.id.llSplashScreen)
+        val landingImg: ConstraintLayout = findViewById(R.id.clSplashScreen)
         val sideAnimation = AnimationUtils.loadAnimation(this, R.anim.slide)
         landingImg.startAnimation(sideAnimation)
 
