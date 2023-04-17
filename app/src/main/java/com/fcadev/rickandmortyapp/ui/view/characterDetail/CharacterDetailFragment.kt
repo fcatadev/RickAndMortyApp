@@ -59,18 +59,26 @@ class CharacterDetailFragment : Fragment() {
             }
 
             binding.tvCharacterDetailName.text = args.characterName.toString()
-            binding.tvStatusContent.text = args.characterStatus.toString()
-            binding.tvGenderContent.text = args.characterGender.toString()
+            binding.tvStatusContent.text = getCharacterEditingResult(args.characterStatus.toString())
+            binding.tvGenderContent.text = getCharacterEditingResult(args.characterGender.toString())
             binding.tvCreatedAtContent.text = args.characterCreated.toString()
-            binding.tvOriginContent.text = args.characterOrigin.toString()
-            binding.tvLocationContent.text = args.characterLocation.toString()
-            binding.tvSpecyContent.text = args.characterSpecy.toString()
+            binding.tvOriginContent.text = getCharacterEditingResult(args.characterOrigin.toString())
+            binding.tvLocationContent.text = getCharacterEditingResult(args.characterLocation.toString())
+            binding.tvSpecyContent.text = getCharacterEditingResult(args.characterSpecy.toString())
             binding.tvEpisodesContent.text = editEpisode
 
             binding.ivAllButton.setOnClickListener {
                 binding.tvEpisodesContent.text = args.characterEpisodes.toString()
                 binding.ivAllButton.visibility = View.GONE
             }
+        }
+    }
+
+    fun getCharacterEditingResult (text: String): String {
+        return if (text.length > 17){
+            text.substring(0, 17) + "..."
+        }else {
+            text
         }
     }
 }

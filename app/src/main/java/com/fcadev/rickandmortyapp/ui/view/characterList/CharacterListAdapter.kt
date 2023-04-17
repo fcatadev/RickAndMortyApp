@@ -72,26 +72,14 @@ class CharacterListAdapter(private val characterList: ArrayList<CharacterResult>
 
             episodeNumbersString = episodeNumbersString.dropLast(2)
 
-            val showEditLocation = if (characterItem.location!!.name.toString().length > 18) {
-                characterItem.location.name.toString().substring(0, 18) + "..."
-            } else {
-                characterItem.location.name.toString()
-            }
-
-            val showEditOrigin = if (characterItem.origin!!.name.toString().length > 18) {
-                characterItem.origin.name.toString().substring(0, 18) + "..."
-            } else {
-                characterItem.origin.name.toString()
-            }
-
             val bundle = Bundle()
             bundle.putString("characterName", characterItem.name)
             bundle.putString("characterStatus", characterItem.status)
             bundle.putString("characterGender", characterItem.gender)
             bundle.putString("characterCreated", createdDate)
             bundle.putString("characterImage", characterItem.image)
-            bundle.putString("characterOrigin", showEditOrigin)
-            bundle.putString("characterLocation", showEditLocation)
+            bundle.putString("characterOrigin", characterItem.origin!!.name)
+            bundle.putString("characterLocation", characterItem.location!!.name)
             bundle.putString("characterEpisodes", episodeNumbersString)
             bundle.putString("characterSpecy", characterItem.species)
 
