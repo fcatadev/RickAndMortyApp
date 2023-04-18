@@ -28,19 +28,19 @@ class CharacterListViewModel : ViewModel() {
     val residentNumbersArray = MutableLiveData<ArrayList<String>>()
 
 
-    fun downloadLocationData() {
-        getLocationDataFromAPI()
+    fun downloadLocationData(page: String) {
+        getLocationDataFromAPI(page)
     }
 
     fun downloadCharacterData(page: String) {
         getCharacterDataFromAPI(page)
     }
 
-    private fun getLocationDataFromAPI() {
+    private fun getLocationDataFromAPI(page: String) {
         locationsLoading.value = true
 
         disposable.add(
-            locationAPIService.getLocationsData()
+            locationAPIService.getLocationsData(page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<RamLocation>() {

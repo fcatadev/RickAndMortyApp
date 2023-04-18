@@ -33,6 +33,7 @@ class CharacterListFragment : Fragment() {
     private lateinit var locationAdapter: LocationListAdapter
     private val characterAdapter = CharacterListAdapter(arrayListOf())
     private var characterListPageNumber = 1
+    private var locationListPageNumber = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +47,7 @@ class CharacterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[CharacterListViewModel::class.java]
-        viewModel.downloadLocationData()
+        viewModel.downloadLocationData("$locationListPageNumber")
         viewModel.downloadCharacterData("$characterListPageNumber")
         locationAdapter = LocationListAdapter(arrayListOf(), viewModel, requireContext())
 
@@ -101,7 +102,9 @@ class CharacterListFragment : Fragment() {
         } else {
             binding.cvPreviousBtn.isCheckable = true
             binding.cvPreviousBtn.alpha = 1.0f
-            binding.cvPreviousBtn.setOnClickListener {
+        }
+        binding.cvPreviousBtn.setOnClickListener {
+            if (characterListPageNumber != 1) {
                 characterListPageNumber--
                 viewModel.downloadCharacterData("$characterListPageNumber")
                 updatePreviousButton()

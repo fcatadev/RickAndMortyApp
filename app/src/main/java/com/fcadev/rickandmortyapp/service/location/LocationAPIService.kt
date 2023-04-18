@@ -11,15 +11,17 @@ class LocationAPIService {
     //https://rickandmortyapi.com/api/location
 
     private val BASE_URL = "https://rickandmortyapi.com/"
-    private val api = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(LocationAPI::class.java)
+    private val api by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+            .create(LocationAPI::class.java)
+    }
 
-    fun getLocationsData(): Single<RamLocation>{
-        return api.getLocations()
+    fun getLocationsData(page: String): Single<RamLocation> {
+        return api.getLocations(page)
     }
 
 }
