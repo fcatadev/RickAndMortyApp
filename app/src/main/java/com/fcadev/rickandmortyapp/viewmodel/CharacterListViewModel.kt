@@ -21,29 +21,29 @@ class CharacterListViewModel : ViewModel() {
     private val disposable = CompositeDisposable()
 
     val locations = MutableLiveData<MutableList<Result>>(mutableListOf())
-    val characters = MutableLiveData<MutableList<CharacterResult>?>(mutableListOf())
+    val characters = MutableLiveData<MutableList<CharacterResult>?>()
     val multipleCharactersByLocation = MutableLiveData<ArrayList<CharacterResult>>()
     val singleCharacterByLocation = MutableLiveData<CharacterResult>()
     val locationsLoading = MutableLiveData<Boolean>()
     val residentNumbersArray = MutableLiveData<ArrayList<String>>()
 
 
-    fun downloadLocationData(){
+    fun downloadLocationData() {
         getLocationDataFromAPI()
     }
 
-    fun downloadCharacterData(){
-        getCharacterDataFromAPI()
+    fun downloadCharacterData(page: String) {
+        getCharacterDataFromAPI(page)
     }
 
-    private fun getLocationDataFromAPI(){
+    private fun getLocationDataFromAPI() {
         locationsLoading.value = true
 
         disposable.add(
             locationAPIService.getLocationsData()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<RamLocation>(){
+                .subscribeWith(object : DisposableSingleObserver<RamLocation>() {
                     override fun onSuccess(t: RamLocation) {
                         locations.value = t.results as MutableList<Result>?
                         locationsLoading.value = false
@@ -58,16 +58,16 @@ class CharacterListViewModel : ViewModel() {
         )
     }
 
-    private fun getCharacterDataFromAPI(){
+    private fun getCharacterDataFromAPI(page: String) {
         locationsLoading.value = true
 
         disposable.add(
-            characterAPIService.getCharacterData()
+            characterAPIService.getCharacterData(page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<RamCharacter>(){
+                .subscribeWith(object : DisposableSingleObserver<RamCharacter>() {
                     override fun onSuccess(t: RamCharacter) {
-                        characters.value = t.results as MutableList<CharacterResult>?
+                        characters.value = t.results as ArrayList<CharacterResult>?
                         locationsLoading.value = false
                     }
 
@@ -75,12 +75,11 @@ class CharacterListViewModel : ViewModel() {
                         locationsLoading.value = false
                         e.printStackTrace()
                     }
-
                 })
         )
     }
 
-    fun getCharacterDataByLocation(){
+    fun getCharacterDataByLocation() {
         locationsLoading.value = true
 
         var ids = residentNumbersArray.value.toString()
@@ -123,7 +122,6 @@ class CharacterListViewModel : ViewModel() {
                     })
             )
         }
-
 
 
     }

@@ -19,8 +19,8 @@ class CharacterAPIService {
         .build()
         .create(CharacterAPI::class.java)
 
-    fun getCharacterData(): Single<RamCharacter>{
-        return api.getCharacters()
+    fun getCharacterData(page: String): Single<RamCharacter>{
+        return api.getCharacters(page = page)
     }
 
     fun getCharactersByIds(ids: String): Single<ArrayList<CharacterResult>> {

@@ -1,6 +1,7 @@
 package com.fcadev.rickandmortyapp.ui.view.characterList
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,7 @@ class CharacterListFragment : Fragment() {
     private lateinit var viewModel: CharacterListViewModel
     private lateinit var locationAdapter: LocationListAdapter
     private val characterAdapter = CharacterListAdapter(arrayListOf())
-    private lateinit var characterList: MutableList<CharacterResult>
+    private var characterListPageNumber = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +47,13 @@ class CharacterListFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[CharacterListViewModel::class.java]
         viewModel.downloadLocationData()
-        viewModel.downloadCharacterData()
+        viewModel.downloadCharacterData("$characterListPageNumber")
         locationAdapter = LocationListAdapter(arrayListOf(), viewModel, requireContext())
 
         setRecyclerView()
         initListener()
         observeLiveData()
+        updatePreviousButton()
     }
 
     private fun setRecyclerView() {
@@ -65,12 +67,45 @@ class CharacterListFragment : Fragment() {
     private fun initListener() {
         binding.cvAllBtn.setOnClickListener {
             locationAdapter.clearSelection()
-            binding.cvAllBtn.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.character_card_border))
-            viewModel.downloadCharacterData()
+            binding.cvAllBtn.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.character_card_border
+                )
+            )
+            viewModel.downloadCharacterData("$characterListPageNumber")
+            binding.clBottomButton.visibility = View.VISIBLE
         }
 
         locationAdapter.setOnItemClickListener {
-            binding.cvAllBtn.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.cvAllBtn.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.white
+                )
+            )
+            binding.clBottomButton.visibility = View.GONE
+        }
+
+        binding.cvNextBtn.setOnClickListener {
+            characterListPageNumber++
+            viewModel.downloadCharacterData("$characterListPageNumber")
+            updatePreviousButton()
+        }
+    }
+
+    private fun updatePreviousButton() {
+        if (characterListPageNumber == 1) {
+            binding.cvPreviousBtn.isCheckable = false
+            binding.cvPreviousBtn.alpha = 0.5f
+        } else {
+            binding.cvPreviousBtn.isCheckable = true
+            binding.cvPreviousBtn.alpha = 1.0f
+            binding.cvPreviousBtn.setOnClickListener {
+                characterListPageNumber--
+                viewModel.downloadCharacterData("$characterListPageNumber")
+                updatePreviousButton()
+            }
         }
     }
 
