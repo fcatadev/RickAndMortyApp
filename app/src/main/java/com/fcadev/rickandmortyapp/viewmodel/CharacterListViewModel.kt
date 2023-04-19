@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class CharacterListViewModel : ViewModel() {
 
@@ -45,7 +46,9 @@ class CharacterListViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<RamLocation>() {
                     override fun onSuccess(t: RamLocation) {
-                        locations.value = t.results as MutableList<Result>?
+                        val existingResults = locations.value ?: mutableListOf()
+                        existingResults.addAll(t.results as MutableList<Result>)
+                        locations.value = existingResults
                         locationsLoading.value = false
                     }
 

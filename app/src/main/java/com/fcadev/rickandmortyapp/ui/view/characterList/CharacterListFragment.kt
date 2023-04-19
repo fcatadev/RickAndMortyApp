@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
@@ -93,7 +95,21 @@ class CharacterListFragment : Fragment() {
             viewModel.downloadCharacterData("$characterListPageNumber")
             updatePreviousButton()
         }
+
+        binding.rvLocation.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+                if (lastVisibleItemPosition == totalItemCount - 1 && locationListPageNumber <= 7) {
+                    locationListPageNumber++
+                    viewModel.downloadLocationData(locationListPageNumber.toString())
+                }
+            }
+        })
     }
+
 
     private fun updatePreviousButton() {
         if (characterListPageNumber == 1) {
@@ -147,6 +163,8 @@ class CharacterListFragment : Fragment() {
                     binding.rvLocation.visibility = View.GONE
                     binding.rvCharacters.visibility = View.GONE
                     binding.cvAllBtn.visibility = View.GONE
+                    binding.cvNextBtn.visibility = View.GONE
+                    binding.cvPreviousBtn.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                     binding.clStartedPage.alpha = 0.2f
                 } else {
@@ -154,6 +172,8 @@ class CharacterListFragment : Fragment() {
                     binding.rvLocation.visibility = View.VISIBLE
                     binding.rvCharacters.visibility = View.VISIBLE
                     binding.cvAllBtn.visibility = View.VISIBLE
+                    binding.cvNextBtn.visibility = View.VISIBLE
+                    binding.cvPreviousBtn.visibility = View.VISIBLE
                     binding.clStartedPage.alpha = 1f
                 }
             }
