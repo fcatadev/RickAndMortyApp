@@ -38,7 +38,7 @@ class CharacterListViewModel : ViewModel() {
     }
 
     private fun getLocationDataFromAPI(page: String) {
-        locationsLoading.value = true
+        locationsLoading.postValue(true)
 
         disposable.add(
             locationAPIService.getLocationsData(page)

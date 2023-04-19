@@ -1,6 +1,8 @@
 package com.fcadev.rickandmortyapp.ui.view.characterList
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,6 +27,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.*
 
 class CharacterListFragment : Fragment() {
 
@@ -67,6 +70,7 @@ class CharacterListFragment : Fragment() {
         binding.rvCharacters.layoutManager = LinearLayoutManager(context)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun initListener() {
         binding.cvAllBtn.setOnClickListener {
             locationAdapter.clearSelection()
@@ -104,7 +108,12 @@ class CharacterListFragment : Fragment() {
                 val totalItemCount = layoutManager.itemCount
                 if (lastVisibleItemPosition == totalItemCount - 1 && locationListPageNumber <= 7) {
                     locationListPageNumber++
-                    viewModel.downloadLocationData(locationListPageNumber.toString())
+                    binding.pbLocationList.visibility = View.VISIBLE
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        viewModel.downloadLocationData(locationListPageNumber.toString())
+                        binding.pbLocationList.visibility = View.GONE
+                    }, 3000)
+                    Log.d("Location page ", locationListPageNumber.toString())
                 }
             }
         })
