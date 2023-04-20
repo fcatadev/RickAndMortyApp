@@ -10,6 +10,7 @@ Used in the project.
 - Retrofit
 - Shared Preferences
 - Composite Disposable
+- Lazy Loading
 
 
 Extra features I added
