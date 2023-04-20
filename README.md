@@ -1,10 +1,11 @@
-# RickAndMortyApp
+# Rick and Morty App
 
 An Android application where you can examine the characters in the famous Rick and Morty series. 
 In my application, where you can access the details of the characters, you can also filter the characters according to the location data.
 
+![In-App screenshots with background](https://i.ibb.co/JjNL8xM/ramapp-banner.png)
 
-Used in the project.
+## Used Technologies
 - https://rickandmortyapi.com/
 - MVVM
 - Retrofit
@@ -13,7 +14,7 @@ Used in the project.
 - Lazy Loading
 
 
-Extra features I added
+## Extra features I added
 - An "All" button has been added to bring all characters when clicked at the beginning of the horizontal list prepared for location filtering.
 
 - When all the characters were listed, only the first 20 characters were visible according to the page number due to the data coming from the api. 
@@ -24,3 +25,13 @@ To solve this problem (location, origin, etc.), I cut the sentences that did not
 In Episodes, I found a solution that I think is different and more beautiful. 
 As you can see in the pictures, there is an "All" button at the end of the episodes that don't fit. 
 When we click on this button, a certain part of the detail page stretches down and shows all the episode values, I tried to create a system that is both legible and pleasing to the eye.
+
+ ## Run it
+
+Clone the project
+
+```bash
+  git clone https://github.com/trainerdev/RickAndMortyApp
+```
+
+Open in Android Studio and run.
